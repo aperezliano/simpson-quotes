@@ -1,0 +1,25 @@
+{
+  "name": "quotes-and-authors",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.0",
+    "require-dir-all": "^0.4.15"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "test": "mocha --recursive './tests/**/*.test.js'",
+    "start": "PORT=8080 node './index.js'",
+    "debug": "PORT=8080 node --inspect './index.js'"
+  },
+  "author": "",
+  "license": "ISC"
+}
