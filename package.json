@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "mocha --recursive './test/**/*.test.js'",
-    "start": "PORT=8080 node './index.js'",
+    "start": "NODE_ENV=PROD PORT=8080 node './index.js'",
     "debug": "PORT=8080 node --inspect './index.js'"
   },
   "author": "",
