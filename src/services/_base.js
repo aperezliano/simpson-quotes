@@ -7,10 +7,5 @@ var fetchRetry = require('fetch-retry')(fetchNode, {
 module.exports = { fetch };
 
 async function fetch(url) {
-  return await fetchRetry(url)
-    .then((response) => response.json())
-    .catch((e) => {
-      console.log(e);
-      throw 'Internal service call error';
-    });
+  return await fetchRetry(url).then((response) => response.json());
 }

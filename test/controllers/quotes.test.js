@@ -4,12 +4,6 @@ const app = require('../../src/app');
 
 describe('Quotes Controller', function () {
   this.timeout(5000);
-  describe('GET random quote', () => {
-    it('Should return a quote, status 200 & content-type json', async () => {
-      const response = await request(app).get('/quotes').expect(200);
-      checkQuoteResponseBody(response.body);
-    });
-  });
 
   describe('GET random Simpsons quote', () => {
     it('Should return a quote, status 200 & content-type json', async () => {

@@ -1,51 +1,26 @@
 const quotesService = require('../services/quotes');
 const wikipediaService = require('../services/wikipedia');
 
-module.exports = { getRandomQuote, getRandomSimpsonsQuote, getRandomQuoteAndAuthorInformation };
-
-async function getRandomQuote(_, res, next) {
-  const quote = await getServiceCallResult({ serviceCallback: quotesService.getRandomQuote });
-  handleResponse({ response: quote, res, next });
-}
+module.exports = { getRandomSimpsonsQuote, getRandomSimpsonsQuoteAndCharacterformation };
 
 async function getRandomSimpsonsQuote(_, res, next) {
-  const quote = await getServiceCallResult({ serviceCallback: quotesService.getRandomSimpsonsQuotes });
-  handleResponse({ response: quote, res, next });
+  try {
+    const quote = await quotesService.getRandomSimpsonsQuotes();
+    res.send(quote);
+  } catch (e) {
+    console.log(e);
+    next('Internal error');
+  }
 }
 
-async function getRandomQuoteAndAuthorInformation(_, res, next) {
-  const quote = await getServiceCallResult({
-    serviceCallback: quotesService.getRandomQuote,
-  });
-
-  const authorArticle = await getServiceCallResult({
-    serviceCallback: wikipediaService.getArticle,
-    serviceParams: { title: quote.author },
-  });
-
-  handleResponse({ response: { ...quote, ...authorArticle }, res, next });
-}
-
-/***********/
-
-async function getServiceCallResult({ serviceCallback, serviceParams }) {
-  let retries = 10;
-  let quote;
-  do {
-    try {
-      quote = await serviceCallback(serviceParams);
-    } catch (e) {
-      console.log(e);
-    }
-    retries--;
-  } while (!quote && retries > 0);
-  return quote;
-}
-
-function handleResponse({ response, res, next }) {
-  if (response) {
+async function getRandomSimpsonsQuoteAndCharacterformation(_, res, next) {
+  try {
+    const quote = await quotesService.getRandomSimpsonsQuotes();
+    const characterArticle = await wikipediaService.getArticle({ title: quote.author });
+    const response = { ...quote, ...characterArticle };
     res.send(response);
-  } else {
+  } catch (e) {
+    console.log(e);
     next('Internal error');
   }
 }
