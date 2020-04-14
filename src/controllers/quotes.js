@@ -9,7 +9,7 @@ async function getRandomSimpsonsQuote(_, res, next) {
     const quote = quotes[0];
     res.send(quote);
   } catch (e) {
-    next(e);
+    next('Internal Error');
   }
 }
 
@@ -27,6 +27,6 @@ async function getRandomSimpsonsQuoteAndCharacterformation(_, res, next) {
     };
     res.send(response);
   } catch (e) {
-    next(e);
+    next('Internal Error');
   }
 }

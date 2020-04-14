@@ -7,20 +7,23 @@ const quotesService = require('../../src/services/quotes');
 const wikipediaService = require('../../src/services/wikipedia');
 
 describe('Quotes Controller', function () {
+  let getRandomSimpsonsQuotesStub;
+  let getArticleStub;
+
+  beforeEach(function () {
+    getRandomSimpsonsQuotesStub = sinon.stub(quotesService, 'getRandomSimpsonsQuotes');
+    getArticleStub = sinon.stub(wikipediaService, 'getArticle');
+  });
+
+  afterEach(function () {
+    getRandomSimpsonsQuotesStub.restore();
+    getArticleStub.restore();
+  });
+
   describe('200 cases', function () {
-    let getRandomSimpsonsQuotesStub;
-    let getArticleStub;
-
     beforeEach(function () {
-      getRandomSimpsonsQuotesStub = sinon
-        .stub(quotesService, 'getRandomSimpsonsQuotes')
-        .returns(Promise.resolve(getExampleQuotes()));
-      getArticleStub = sinon.stub(wikipediaService, 'getArticle').returns(Promise.resolve(getExampleArticle()));
-    });
-
-    afterEach(function () {
-      getRandomSimpsonsQuotesStub.restore();
-      getArticleStub.restore();
+      getRandomSimpsonsQuotesStub.returns(Promise.resolve(getExampleQuotes()));
+      getArticleStub.returns(Promise.resolve(getExampleArticle()));
     });
 
     describe('GET random Simpsons quote', function () {
@@ -42,17 +45,9 @@ describe('Quotes Controller', function () {
   });
 
   describe('500 cases', function () {
-    let getArticleStub;
-    let getRandomSimpsonsQuotesStub;
-
     beforeEach(function () {
-      getRandomSimpsonsQuotesStub = sinon.stub(quotesService, 'getRandomSimpsonsQuotes').throws('Error');
-      getArticleStub = sinon.stub(wikipediaService, 'getArticle').throws('Error');
-    });
-
-    afterEach(function () {
-      getRandomSimpsonsQuotesStub.restore();
-      getArticleStub.restore();
+      getRandomSimpsonsQuotesStub.throws('Error');
+      getArticleStub.throws('Error');
     });
 
     describe('GET random Simpsons quote', function () {
