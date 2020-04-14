@@ -4,8 +4,10 @@ var fetchRetry = require('fetch-retry')(fetchNode, {
   retryDelay: 1000,
 });
 
-module.exports = { fetch };
+module.exports = { fetchAndParseJson };
 
-async function fetch(url) {
-  return await fetchRetry(url).then((response) => response.json());
+async function fetchAndParseJson(url) {
+  return await fetchRetry(url)
+    .then((response) => response.json())
+    .catch(() => ({}));
 }

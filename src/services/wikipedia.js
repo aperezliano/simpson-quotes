@@ -1,11 +1,11 @@
-const { fetch } = require('./_base');
+const { fetchAndParseJson } = require('./_base');
 
 module.exports = { getArticle };
 
 async function getArticle({ title }) {
-  // Wiki images domain: https://en.wikipedia.org/wiki/File:{fileName}
-  const content = await fetch(
+  const content = await fetchAndParseJson(
     `https://en.wikipedia.org/w/api.php?action=parse&page=${title}&prop=text|images&format=json&redirects=true`
   );
-  return { text: content.parse.text, images: content.parse.images };
+  const imagesWithDomain = content.parse.images.map((image) => `https://en.wikipedia.org/wiki/File:${image}`);
+  return { text: content.parse.text, images: imagesWithDomain };
 }
