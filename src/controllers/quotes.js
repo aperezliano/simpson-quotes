@@ -22,7 +22,7 @@ async function getRandomSimpsonsQuoteAndCharacterformation(_, res, next) {
     const response = {
       quote: quote.quote,
       character: quote.character,
-      text: characterArticle.text,
+      wiki: characterArticle.text,
       images: [quote.image, ...characterArticle.images],
     };
     res.send(response);

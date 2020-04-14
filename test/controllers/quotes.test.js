@@ -75,12 +75,12 @@ function checkWikiResponseBody(responseBody) {
   const exampleArticle = getExampleArticle();
   const exampleQuote = getExampleQuotes()[0];
 
-  expect(responseBody).to.have.all.keys('quote', 'character', 'text', 'images');
+  expect(responseBody).to.have.all.keys('quote', 'character', 'wiki', 'images');
   expect(responseBody).not.to.have.any.keys('image');
   expect(responseBody).to.deep.include({
     quote: exampleQuote.quote,
     character: exampleQuote.character,
-    text: exampleArticle.text,
+    wiki: exampleArticle.text,
     images: [exampleQuote.image, ...exampleArticle.images],
   });
 }
