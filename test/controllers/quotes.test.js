@@ -24,9 +24,12 @@ describe('Quotes Controller', function () {
 function checkQuoteResponseBody(responseBody) {
   expect(responseBody).to.have.any.keys('quote', 'author');
   expect(responseBody.quote).not.to.be.empty;
-  expect(responseBody.author).not.to.be.empty;
+  expect(responseBody.character).not.to.be.empty;
+  expect(responseBody.image).not.to.be.empty;
 }
 
 function checkAuthorResponseBody(responseBody) {
   expect(responseBody).to.have.any.keys('text', 'images');
+  expect(responseBody.text).not.to.be.empty;
+  expect(responseBody.images).not.to.be.empty;
 }
