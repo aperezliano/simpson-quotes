@@ -2,7 +2,7 @@ const { fetchAndParseJson } = require('./_base');
 
 module.exports = { getArticle };
 
-async function getArticle({ title }) {
+async function getArticle(title = '') {
   const content = await fetchAndParseJson(
     `https://en.wikipedia.org/w/api.php?action=parse&page=${title}&prop=text|images&format=json&redirects=true`
   );

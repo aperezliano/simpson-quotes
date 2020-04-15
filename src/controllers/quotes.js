@@ -5,7 +5,7 @@ module.exports = { getRandomSimpsonsQuote, getRandomSimpsonsQuoteAndCharacterfor
 
 async function getRandomSimpsonsQuote(_, res, next) {
   try {
-    const quotes = await quotesService.getRandomSimpsonsQuotes({ amount: 1 });
+    const quotes = await quotesService.getRandomSimpsonsQuotes(1);
     const quote = quotes[0];
     res.send(quote);
   } catch (e) {
@@ -15,9 +15,9 @@ async function getRandomSimpsonsQuote(_, res, next) {
 
 async function getRandomSimpsonsQuoteAndCharacterformation(_, res, next) {
   try {
-    const quotes = await quotesService.getRandomSimpsonsQuotes({ amount: 1 });
+    const quotes = await quotesService.getRandomSimpsonsQuotes(1);
     const quote = quotes[0];
-    const characterArticle = await wikipediaService.getArticle({ title: quote.character });
+    const characterArticle = await wikipediaService.getArticle(quote.character);
 
     const response = {
       quote: quote.quote,
