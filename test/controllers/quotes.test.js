@@ -12,7 +12,7 @@ describe('Quotes Controller', function () {
 
   beforeEach(function () {
     getRandomSimpsonsQuotesStub = sinon.stub(quotesService, 'getRandomSimpsonsQuotes');
-    getArticleStub = sinon.stub(wikipediaService, 'getArticle');
+    getArticleStub = sinon.stub(wikipediaService, 'getArticleByTitle');
   });
 
   afterEach(function () {
@@ -46,8 +46,8 @@ describe('Quotes Controller', function () {
 
   describe('500 cases', function () {
     beforeEach(function () {
-      getRandomSimpsonsQuotesStub.throws('Error');
-      getArticleStub.throws('Error');
+      getRandomSimpsonsQuotesStub.throws('Error', 'Controlled Error');
+      getArticleStub.throws('Error', 'Controlled Error');
     });
 
     describe('GET random Simpsons quote', function () {

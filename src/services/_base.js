@@ -4,10 +4,12 @@ var fetchRetry = require('fetch-retry')(fetchNode, {
   retryDelay: 1000,
 });
 
-module.exports = { fetchAndParseJson };
+module.exports = { fetch };
 
-async function fetchAndParseJson(url) {
-  return await fetchRetry(url)
-    .then((response) => response.json())
-    .catch(() => ({}));
+async function fetch(url) {
+  const result = await fetchRetry(url);
+  if (result.status == 200) {
+    return result;
+  }
+  throw `Request status is: ${result.status}`;
 }

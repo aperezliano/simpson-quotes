@@ -9,7 +9,7 @@ async function getRandomSimpsonsQuote(_, res, next) {
     const quote = quotes[0];
     res.send(quote);
   } catch (e) {
-    next('Internal Error');
+    next(e.message);
   }
 }
 
@@ -17,7 +17,7 @@ async function getRandomSimpsonsQuoteAndCharacterformation(_, res, next) {
   try {
     const quotes = await quotesService.getRandomSimpsonsQuotes(1);
     const quote = quotes[0];
-    const characterArticle = await wikipediaService.getArticle(quote.character);
+    const characterArticle = await wikipediaService.getArticleByTitle(quote.character);
 
     const response = {
       quote: quote.quote,
@@ -27,6 +27,6 @@ async function getRandomSimpsonsQuoteAndCharacterformation(_, res, next) {
     };
     res.send(response);
   } catch (e) {
-    next('Internal Error');
+    next(e.message);
   }
 }
