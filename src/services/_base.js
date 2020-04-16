@@ -11,5 +11,9 @@ async function fetch(url) {
   if (result.status == 200) {
     return result;
   }
-  throw `Request status is: ${result.status}`;
+  throw Error(
+    `Request error:
+      Status: ${result.status}
+      Text: ${await result.text()}`
+  );
 }
