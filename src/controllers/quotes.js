@@ -16,14 +16,15 @@ async function getRandomSimpsonsQuote(_, res, next) {
 async function getRandomSimpsonsQuoteAndCharacterformation(_, res, next) {
   try {
     const quotes = await quotesService.getRandomSimpsonsQuotes(1);
-    const quote = quotes[0];
-    const characterArticle = await wikipediaService.getArticleByTitle(quote.character);
+    const { character, quote, image: mainImage } = quotes[0] || {};
+    const { text: wiki, images } = await wikipediaService.getArticleByTitle(character);
 
     const response = {
-      quote: quote.quote,
-      character: quote.character,
-      wiki: characterArticle.text,
-      images: [quote.image, ...characterArticle.images],
+      quote,
+      character,
+      wiki,
+      mainImage,
+      images,
     };
     res.send(response);
   } catch (e) {

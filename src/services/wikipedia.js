@@ -1,9 +1,9 @@
-const { fetch } = require('./_base');
+const _base = require('./_base');
 
 module.exports = { getArticleByTitle };
 
 async function getArticleByTitle(title = '') {
-  const response = await fetch(
+  const response = await _base.fetch(
     `https://en.wikipedia.org/w/api.php?action=parse&page=${title}&prop=text|images&format=json&redirects=true`
   );
   const content = await response.json();

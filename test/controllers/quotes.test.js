@@ -72,16 +72,16 @@ function checkQuoteResponseBody(responseBody) {
 }
 
 function checkWikiResponseBody(responseBody) {
-  const exampleArticle = getExampleArticle();
-  const exampleQuote = getExampleQuotes()[0];
+  const { text, images } = getExampleArticle();
+  const { quote, character, image } = getExampleQuotes()[0];
 
-  expect(responseBody).to.have.all.keys('quote', 'character', 'wiki', 'images');
-  expect(responseBody).not.to.have.any.keys('image');
+  expect(responseBody).to.have.all.keys('quote', 'character', 'wiki', 'images', 'mainImage');
   expect(responseBody).to.deep.include({
-    quote: exampleQuote.quote,
-    character: exampleQuote.character,
-    wiki: exampleArticle.text,
-    images: [exampleQuote.image, ...exampleArticle.images],
+    quote: quote,
+    character: character,
+    wiki: text,
+    mainImage: image,
+    images: images,
   });
 }
 

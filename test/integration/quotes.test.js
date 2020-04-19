@@ -28,7 +28,7 @@ function checkQuoteResponseBody(responseBody) {
 }
 
 function checkWikiResponseBody(responseBody) {
-  expect(responseBody).to.have.all.keys('wiki', 'images', 'quote', 'character');
+  expect(responseBody).to.have.all.keys('wiki', 'images', 'quote', 'character', 'mainImage');
   expect(responseBody.quote).not.to.be.empty;
   expect(responseBody.character).not.to.be.empty;
   expect(responseBody.wiki).not.to.be.empty;
